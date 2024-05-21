@@ -1,61 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import Navbar from './components/navbar';
-// import Dashboard from './components/dashboard';
-// import Sales from './components/sales';
-// import Inventory from './components/inventory';
-// import Customers from './components/customers'; // Assuming Customers is the correct component for "/customers"
-// import Settings from './components/settings';
-import BookList from './components/BookList';
-import BookDetails from './components/BookDetails';
-import AddBookForm from './components/AddBookForm';
+import Navbar from './components/Navbar';
+import Dashboard from './components/Dashboard'; // You need to create or uncomment this component
+import Sales from './components/Sales'; // You need to create or uncomment this component
+import Inventory from './components/Inventory'; // You need to create or uncomment this component
+import Customers from './components/Customers'; // You need to create or uncomment this component
+import Settings from './components/Settings'; // You need to create or uncomment this component
+import Books from './components/Books';
 
 function App() {
-    const [books, setBooks] = useState([
-        { id: 1, title: 'Book 1', author: 'Author 1', genre: 'Fiction', price: 20.99 },
-        { id: 2, title: 'Book 2', author: 'Author 2', genre: 'Non-Fiction', price: 15.99 },
-    ]);
-    const [selectedBookId, setSelectedBookId] = useState(null);
-
-    const handleBookClick = (bookId) => {
-        setSelectedBookId(bookId);
-    };
-
-    const handleAddBook = (newBook) => {
-        const newBooks = [...books, { ...newBook, id: books.length + 1 }];
-        setBooks(newBooks);
-    };
-
     return (
-        <div>
-            <h1>Welcome to the Bookshop</h1>
-            <div style={{ display: 'flex' }}>
-                <div style={{ flex: '1', marginRight: '20px' }}>
-                    <BookList books={books} onBookClick={handleBookClick} />
-                    <AddBookForm onAddBook={handleAddBook} />
-                </div>
-                <div style={{ flex: '2' }}>
-                    <BookDetails book={books.find((book) => book.id === selectedBookId)} />
-                </div>
+        <Router>
+            <div>
+                <Navbar />
+                <Routes>
+                    <Route path="/" element={<h1>Welcome to the Bookshop Landing Page</h1>} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/sales" element={<Sales />} />
+                    <Route path="/inventory" element={<Inventory />} />
+                    <Route path="/customers" element={<Customers />} />
+                    <Route path="/settings" element={<Settings />} />
+                    <Route path="/books" element={<Books />} />
+                </Routes>
             </div>
-        </div>
+        </Router>
     );
-};
-//     return (
-//         <Router>
-//             <div>
-//                 <Navbar />
-//                 <Routes>
-//                     <Route path="/" element={<Dashboard />} />
-//                     <Route path="/dashboard" element={<Dashboard />} />
-//                     <Route path="/sales" element={<Sales />} />
-//                     <Route path="/inventory" element={<Inventory />} />
-//                     <Route path="/customers" element={<Customers />} />
-//                     <Route path="/settings" element={<Settings />} />
-//                 </Routes>
-//             </div>
-//         </Router>
-//     );
-// }
+}
 
 export default App;
